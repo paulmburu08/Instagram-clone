@@ -9,9 +9,15 @@ class Profile(models.Model):
     profile_photo = CloudinaryField('image')
     bio = models.TextField()
 
-    @receiver(pre_delete, sender=Profile)
-    def photo_delete(self, sender, instance, **kwargs):
-        cloudinary.uploader.destroy(instance.image.public_id)
+    def save_profile_photo(self):
+        self.save()
+
+    def delete_profile_photo(self):
+        self.delete()
+
+    @classmethod
+    def update_profile_photo(cls,id,image):
+        cls.objects.filter(id = id).update(profile_photo = profile_photo)
 
 class Image(models.Model):
     image = CloudinaryField('image')
@@ -21,6 +27,19 @@ class Image(models.Model):
     likes = models.IntegerField(default=0)
     comments = models.CharField(max_length=100)
 
-    @receiver(pre_delete, sender=Image)
-    def photo_delete(self, sender, instance, **kwargs):
-        cloudinary.uploader.destroy(instance.image.public_id)
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+
+    @classmethod
+    def update_image(cls,id,image):
+        cls.objects.filter(id = id).update(image = image)
+
