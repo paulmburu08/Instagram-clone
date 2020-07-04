@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -134,9 +135,10 @@ STATICFILES_DIRS = [
 
 #------ cloudinary settings----------
 cloudinary.config(
-    cloud_name = config('CLOUD_NAME'),
-    api_key = config('API_KEY'),
-    api_secret = config('API_SECRET')
+    cloud_name = 'paulmburu08',
+    api_key = '226393814977113',
+    api_secret = 'Wj7tG35BkvO0O4Sd2Hvmzts1qLY',
+    secure = True
 )
 
 LOGIN_REDIRECT_URL = 'index'

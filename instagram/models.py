@@ -32,10 +32,10 @@ class Image(models.Model):
     image = CloudinaryField('image')
     name = HTMLField()
     caption = HTMLField()
-    profile = models.ForeignKey(Profile,on_delete=models.DO_NOTHING)
     likes = models.IntegerField(default=0)
     comments = HTMLField()
     post_date = models.DateTimeField(auto_now_add=True)
+    profile = models.ForeignKey(Profile,on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
 
     def __str__(self):
