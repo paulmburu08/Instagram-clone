@@ -9,4 +9,15 @@ class ProfileForm(forms.ModelForm):
 class PostImage(forms.ModelForm):
     class Meta:
         model = Image
-        exclude = ['profile', 'likes', 'post_date', 'user']
+        exclude = ['profile', 'likes', 'post_date', 'user', 'comments']
+        widgets = {
+            'name': forms.TextInput()
+        }
+
+class Comments(forms.ModelForm):
+    class Meta:
+        model = Image
+        exclude = ['profile', 'likes', 'post_date', 'user', 'comments', 'image', 'name', 'caption']
+        widgets = {
+            'comments': forms.TextInput()
+        }
