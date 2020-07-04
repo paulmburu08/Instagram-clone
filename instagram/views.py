@@ -14,7 +14,7 @@ def profile(request):
             profile = form.save(commit=False)
             profile.user = current_user
             profile.save()
-        return redirect('')
+        return redirect('new/photo/')
 
     else:
         form = ProfileForm()
