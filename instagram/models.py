@@ -9,6 +9,12 @@ class Profile(models.Model):
     profile_photo = CloudinaryField('image')
     bio = models.TextField()
 
+    def __str__(self):
+        return self.profile_photo
+
+    class Meta:
+        ordering = ['profile_photo']
+
     def save_profile_photo(self):
         self.save()
 
@@ -16,7 +22,7 @@ class Profile(models.Model):
         self.delete()
 
     @classmethod
-    def update_profile_photo(cls,id,image):
+    def update_profile_photo(cls,id,profile_photo):
         cls.objects.filter(id = id).update(profile_photo = profile_photo)
 
 class Image(models.Model):
