@@ -3,9 +3,10 @@ from cloudinary.models import CloudinaryField
 from django.db.models.signals import pre_delete
 import cloudinary
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 # Create your models here.
-from tinymce.models import HTMLField
+
 class Profile(models.Model):
     profile_photo = CloudinaryField('image')
     bio = HTMLField()
@@ -27,7 +28,6 @@ class Profile(models.Model):
     def update_profile_photo(cls,id,profile_photo):
         cls.objects.filter(id = id).update(profile_photo = profile_photo)
 
-from tinymce.models import HTMLField
 class Image(models.Model):
     image = CloudinaryField('image')
     name = HTMLField()
@@ -35,6 +35,7 @@ class Image(models.Model):
     profile = models.ForeignKey(Profile,on_delete=models.DO_NOTHING)
     likes = models.IntegerField(default=0)
     comments = HTMLField()
+    post_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
 
     def __str__(self):
