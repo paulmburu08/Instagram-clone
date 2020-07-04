@@ -133,3 +133,5 @@ cloudinary.config(
     api_key = config('API_KEY'),
     api_secret = config('API_SECRET')
 )
+
+ACCOUNT_ACTIVATION_DAYS = 7
