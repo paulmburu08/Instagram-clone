@@ -14,5 +14,9 @@
 <body>
     {% include 'navbar.html' %}
     <h1>Landing Page</h1>
+    {% for image in images %}
+    <h3>{{ image.user.username }}</h3>
+    <img src="{{ image.image.url }}">
+    {% endfor %}
 </body>
 </html>

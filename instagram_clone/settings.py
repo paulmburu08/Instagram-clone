@@ -138,3 +138,5 @@ cloudinary.config(
     api_key = config('API_KEY'),
     api_secret = config('API_SECRET')
 )
+
+LOGIN_REDIRECT_URL = 'index'
