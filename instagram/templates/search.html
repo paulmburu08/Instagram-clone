@@ -1,3 +1,6 @@
+{% load bootstrap3 %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +9,14 @@
     <title>Search</title>
 </head>
 <body>
+    {% if usernames%}
+      <h2 class="search">Found {{ usernames|length }} of searched term {{message}}</h2> <br><br>
+    {% else %}
+      <h2 class="search"> Found 0 usernames for the search term {{message}}</h2> <br><br>
+    {% endif %}
+
     {% for username in usernames %}
-    {{ username.user.username }}
+    <h1>{{ username.user.username }}</h1>
     {% endfor %}
 </body>
 </html>

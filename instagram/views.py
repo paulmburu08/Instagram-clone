@@ -66,3 +66,13 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+
+@login_required(login_url='/accounts/login/')
+def my_images(request,name):
+    try:
+        images = Image.get_image_by_username(name)
+
+    except ObjectDoesNotExist:
+        raise Http404()
+
+    return render(request, 'my_images.html',{'images':images})

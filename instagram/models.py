@@ -35,7 +35,7 @@ class Image(models.Model):
     likes = models.IntegerField(default=0)
     comments = HTMLField(blank=True)
     post_date = models.DateTimeField(auto_now_add=True)
-    profile = models.ForeignKey(Profile,on_delete=models.DO_NOTHING)
+    # profile = models.ForeignKey(Profile,on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -54,6 +54,11 @@ class Image(models.Model):
     def get_image_by_id(cls,id):
         image = cls.objects.get(id = id)
         return image
+
+    @classmethod
+    def get_image_by_username(cls,username):
+        images = cls.objects.filter(user__username__contains = username)
+        return images
 
     @classmethod
     def update_image(cls,id,image):
