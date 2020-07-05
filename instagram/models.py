@@ -25,6 +25,11 @@ class Profile(models.Model):
         self.delete()
 
     @classmethod
+    def get_image_by_username(cls,username):
+        profile = cls.objects.filter(user__username__contains = username)
+        return profile
+
+    @classmethod
     def update_profile_photo(cls,id,profile_photo):
         cls.objects.filter(id = id).update(profile_photo = profile_photo)
 
@@ -42,7 +47,7 @@ class Image(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['name']
+        ordering = ['-name']
 
     def save_image(self):
         self.save()

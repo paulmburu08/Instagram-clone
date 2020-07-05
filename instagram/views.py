@@ -75,4 +75,5 @@ def my_images(request,name):
     except ObjectDoesNotExist:
         raise Http404()
 
-    return render(request, 'my_images.html',{'images':images})
+    profile = Profile.get_image_by_username(name)
+    return render(request, 'my_images.html',{'images':images,'profile':profile})
