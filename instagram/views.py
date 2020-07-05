@@ -52,3 +52,17 @@ def image(request,id):
         raise Http404()
 
     return render(request, 'image.html',{'image':image})
+
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+
+    if 'username' in request.GET and request.GET["username"]:
+        search_term = request.GET.get("username")
+        searched_usernames = Image.search_by_username(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"usernames":searched_usernames})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
