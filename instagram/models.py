@@ -59,3 +59,7 @@ class Image(models.Model):
     def update_image(cls,id,image):
         cls.objects.filter(id = id).update(image = image)
 
+    @classmethod
+    def search_by_username(cls,search_term):
+        users = cls.objects.filter(user__username__icontains=search_term)
+        return users
