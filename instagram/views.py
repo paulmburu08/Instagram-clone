@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from .models import Profile,Image
 from .forms import ProfileForm,PostImage
 
@@ -40,3 +42,13 @@ def new_post(request):
         form = PostImage()
 
     return render(request, 'new_post.html',{'form':form})
+
+@login_required(login_url='/accounts/login/')
+def image(request,id):
+    try:
+        image = Image.get_image_by_id(id)
+
+    except ObjectDoesNotExist:
+        raise Http404()
+
+    return render(request, 'image.html',{'image':image})
