@@ -3,7 +3,7 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Profile,Image
-from .forms import ProfileForm,PostImage
+from .forms import ProfileForm,PostImage,Comments
 
 # Create your views here.
 def index(request):
@@ -51,7 +51,19 @@ def image(request,id):
     except ObjectDoesNotExist:
         raise Http404()
 
-    return render(request, 'image.html',{'image':image})
+    current_user = request.user
+    if request.method == 'POST':
+        form = Comments(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.save()
+        return redirect('/')
+
+    else:
+        form = Comments()
+
+    return render(request, 'image.html',{'image':image,'form':form})
 
 @login_required(login_url='/accounts/login/')
 def search_results(request):
