@@ -33,7 +33,7 @@ class Image(models.Model):
     name = HTMLField()
     caption = HTMLField()
     likes = models.IntegerField(default=0)
-    comments = HTMLField()
+    comments = HTMLField(blank=True)
     post_date = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile,on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
