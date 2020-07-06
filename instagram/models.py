@@ -39,7 +39,7 @@ class Image(models.Model):
     caption = HTMLField()
     likes = models.IntegerField(default=0)
     post_date = models.DateTimeField(auto_now_add=True)
-    # profile = models.ForeignKey(Profile,on_delete=models.DO_NOTHING)
+    profile = models.ForeignKey(Profile,on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -75,9 +75,9 @@ class Image(models.Model):
 
 class Comments(models.Model):
     comments = HTMLField()
-    Image = models.ForeignKey(Image,on_delete=models.DO_NOTHING)
+    image = models.ForeignKey(Image,on_delete=models.DO_NOTHING)
 
     @classmethod
     def get_comments(cls,id):
-        comments = cls.objects.filter(Image__id = id)
+        comments = cls.objects.filter(image__id = id)
         return comments

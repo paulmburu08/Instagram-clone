@@ -10,7 +10,7 @@
     <title></title>
 </head>
 <body>
-    <form  action="{% url 'image' image.id %}" method="post" enctype="multipart/form-data">
+    <form  action="/image/{{image.id}}" method="post" enctype="multipart/form-data">
         {%csrf_token%}
     
         {% bootstrap_form form%}

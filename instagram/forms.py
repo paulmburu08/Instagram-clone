@@ -17,7 +17,7 @@ class PostImage(forms.ModelForm):
 class AddComments(forms.ModelForm):
     class Meta:
         model = Comments
-        exclude = ['Image']
+        exclude = ['image']
         widgets = {
             'comments': forms.TextInput()
         }

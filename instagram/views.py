@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import Http404
+from django.http import Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Profile,Image,Comments
@@ -30,10 +30,12 @@ def profile(request):
 @login_required(login_url='/accounts/login/')
 def new_post(request):
     current_user = request.user
+    profile = Profile.objects.get(user = current_user)
     if request.method == 'POST':
         form = PostImage(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
+            post.profile = profile
             post.user = current_user
             post.save()
         return redirect('/')
@@ -56,9 +58,10 @@ def image(request,id):
         form = AddComments(request.POST, request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.image = image
             comment.user = current_user
             comment.save()
-        return redirect('image')
+        return HttpResponseRedirect(f'/image/{image.id}')
 
     else:
         form = AddComments()

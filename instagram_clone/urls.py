@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'',include('instagram.urls')),
     url('^accounts/register/',
-        RegistrationView.as_view(success_url='/accounts/login'),
+        RegistrationView.as_view(success_url='/profile'),
         name='django_registration_register'),
     url(r'^accounts/', include('django_registration.backends.one_step.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
