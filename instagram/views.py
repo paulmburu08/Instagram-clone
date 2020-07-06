@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Profile,Image
-from .forms import ProfileForm,PostImage,Comments
+from .models import Profile,Image,Comments
+from .forms import ProfileForm,PostImage,AddComments
 
 # Create your views here.
 def index(request):
@@ -53,17 +53,18 @@ def image(request,id):
 
     current_user = request.user
     if request.method == 'POST':
-        form = Comments(request.POST, request.FILES)
+        form = AddComments(request.POST, request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = current_user
             comment.save()
-        return redirect('/')
+        return redirect('image')
 
     else:
-        form = Comments()
+        form = AddComments()
 
-    return render(request, 'image.html',{'image':image,'form':form})
+    comments = Comments.get_comments(id)
+    return render(request, 'image.html',{'image':image,'form':form,'comments':comments})
 
 @login_required(login_url='/accounts/login/')
 def search_results(request):

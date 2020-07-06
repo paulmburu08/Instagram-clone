@@ -1,5 +1,5 @@
-from .models import Profile,Image
 from django import forms
+from .models import Profile,Image,Comments
 
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -14,10 +14,10 @@ class PostImage(forms.ModelForm):
             'name': forms.TextInput()
         }
 
-class Comments(forms.ModelForm):
+class AddComments(forms.ModelForm):
     class Meta:
-        model = Image
-        exclude = ['profile', 'likes', 'post_date', 'user', 'image', 'name', 'caption']
+        model = Comments
+        exclude = ['Image']
         widgets = {
             'comments': forms.TextInput()
         }

@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'instagram_clone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'captivate',
+        'NAME': 'captivate1',
         'USER': 'paul',
         'PASSWORD':'pauldatabase',
     }

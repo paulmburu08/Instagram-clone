@@ -75,3 +75,9 @@ class Image(models.Model):
 
 class Comments(models.Model):
     comments = HTMLField()
+    Image = models.ForeignKey(Image,on_delete=models.DO_NOTHING)
+
+    @classmethod
+    def get_comments(cls,id):
+        comments = cls.objects.filter(Image__id = id)
+        return comments
