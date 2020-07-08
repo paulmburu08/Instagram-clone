@@ -8,8 +8,10 @@ from tinymce.models import HTMLField
 # Create your models here.
 
 class Profile(models.Model):
+    name = HTMLField()
     profile_photo = CloudinaryField('image')
     bio = HTMLField()
+    followers = models.ManyToManyField(User,related_name='followers')
     user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -24,9 +26,17 @@ class Profile(models.Model):
     def delete_profile_photo(self):
         self.delete()
 
+    def total_followers(self):
+        return self.followers.count()
+
     @classmethod
-    def get_image_by_username(cls,username):
-        profile = cls.objects.filter(user__username__contains = username)
+    def search_by_username(cls,search_term):
+        users = cls.objects.filter(user__username__icontains =search_term)
+        return users
+
+    @classmethod
+    def get_image_by_id(cls,id):
+        profile = cls.objects.get(user__id = id)
         return profile
 
     @classmethod
@@ -37,7 +47,7 @@ class Image(models.Model):
     image = CloudinaryField('image')
     name = HTMLField()
     caption = HTMLField()
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User,related_name='image_post')
     post_date = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile,on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
@@ -59,19 +69,17 @@ class Image(models.Model):
         image = cls.objects.get(id = id)
         return image
 
+    def total_likes(self):
+        return self.likes.count()
+
     @classmethod
-    def get_image_by_username(cls,username):
-        images = cls.objects.filter(user__username__contains = username)
+    def get_image_by_id(cls,id):
+        images = cls.objects.get(id = id)
         return images
 
     @classmethod
     def update_image(cls,id,image):
         cls.objects.filter(id = id).update(image = image)
-
-    @classmethod
-    def search_by_username(cls,search_term):
-        users = cls.objects.filter(user__username__icontains=search_term)
-        return users
 
 class Comments(models.Model):
     comments = HTMLField()

@@ -8,22 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Captivate</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/c6c3a50631.js"></script>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
 </head>
 <body>
     {% include 'navbar.html' %}
-    {% if user.is_authenticated %}
-    <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
-    {% else %}
-    <p>Welcome, new user. Please log in.</p>
-    {% endif %}
-
-    {% for image in images %}
-    <h3>{{ image.user.username }}</h3>
-    <a href="{% url 'image' image.id %}">
-    <img src="{{ image.image.url }}">
-    </a>
-    {% endfor %}
+    <div class="container-fluid">
+        {% for image in images %}
+        <div class="card" style="width: 401px;">
+            <div class="card-header">
+                <div class="circular-image">
+                <img class="profile_photo" src="{{image.profile.profile_photo.url}}">
+                </div> &nbsp;
+                <b class="user">{{ image.user.username }}</b>
+            </div>
+            <a href="{% url 'image' image.id %}">
+            <img class="card-img-top" src="{{ image.image.url }}"  style="width: 400px; height: auto;" alt="Card image cap">
+            </a>
+            <div class="card-body">
+            <p class="card-text"><b>{{ image.user.username }}</b> &nbsp; {{ image.caption }}</p>
+            {{image.post_date|date:"l d-F Y"}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 </html>

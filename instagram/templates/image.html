@@ -6,25 +6,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captivate</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/c6c3a50631.js"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title></title>
 </head>
 <body>
-    <form  action="/image/{{image.id}}" method="post" enctype="multipart/form-data">
-        {%csrf_token%}
-    
-        {% bootstrap_form form%}
-        <input type="submit" class="btn btn-success btn-lg" value="Post">
-      </form>
-    {% for comment in comments %}
-    {{ comment.comments }}
-    {% endfor %}
+    {% include 'navbar.html' %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <img class="image" src="{{ image.image.url }}"  style="width: 500px; height: auto;" alt="image">
+      </div>
+      <div class="col-md-6">
+        <p><b>{{ image.user.username }}</b> &nbsp; {{ image.caption }} </p>
+        <p><b>{{ total_likes }}</b> Likes</p>
+        <form  action="/like/{{image.id}}" method="post" enctype="multipart/form-data">
+          {%csrf_token%}
+          <i class="fa fa-heart-o" aria-hidden="true">
+          <button type="submit" class="btn btn-light" value="{{ image.id }}" name="like_button">Like</button>
+          </i>
+        </form> <br>
+        <form  action="/image/{{image.id}}" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+        
+            {% bootstrap_form form%}
+            <input type="submit" class="btn btn-success btn-sm" value="Post">
+          </form>
+        {% for comment in comments %} <br>
+        {{ comment.comments }}
+        {% endfor %}
+      </div>
+    </div>
 
-
-    {% block scripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    {% bootstrap_javascript %}
-     
+      {% block scripts %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      {% bootstrap_javascript %}
+  </div>
     {% endblock %}
 </body>
 </html>

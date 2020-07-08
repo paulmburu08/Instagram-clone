@@ -1,19 +1,49 @@
+{% load bootstrap3 %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Captivate</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/c6c3a50631.js"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    {% for x in profile %} 
-        {% if forloop.last %}
-            <img src="{{ x.profile_photo.url }}">
-            <p>{{ x.bio }}</p>
-        {% endif %}
-    {% endfor %}
-    {% for image in images %} 
-    <img src="{{ image.image.url }}">
-    {% endfor %}
+    {% include 'navbar.html' %}
+    <div class="container fluid">
+        <div class="profile-container">
+            <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="profile-wrapper">
+                        <img src="{{ profile.profile_photo.url }}">
+                    </div>
+                </div> <br>
+                <div class="col-sm-6 bio">
+                        <p><b>{{ profile.bio }}</b></p>
+                        <a href="{% url 'profile' %}">
+                        <button type="button" class="btn btn-light">Edit Profile</button>
+                        </a>
+                    <form  action="{% url 'followers' user.id %}" method="post" enctype="multipart/form-data">
+                        {%csrf_token%}
+                        <button type="submit" class="btn btn-light" value="{{user.id}}" name="followers">Follow</button>
+                    </form>
+                    {{total_followers}}
+                </div>
+            </div> <br> <br> <br>
+            <div class="row">
+                {% for image in images %} 
+                <div class="col-md-4">
+                    <a href="{% url 'image' image.id %}">
+                    <img src="{{ image.image.url }}" style="width: 200px; height: auto;">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </body>
 </html>

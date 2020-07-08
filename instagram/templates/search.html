@@ -6,9 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search</title>
+    <title>Captivate</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/c6c3a50631.js"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    {% include 'navbar.html' %}
     {% if usernames%}
       <h2 class="search">Found {{ usernames|length }} of searched term {{message}}</h2> <br><br>
     {% else %}
@@ -16,7 +20,9 @@
     {% endif %}
 
     {% for username in usernames %}
+    <a href="{% url 'images' username.user.id %}">
     <h1>{{ username.user.username }}</h1>
+    </a>
     {% endfor %}
 </body>
 </html>

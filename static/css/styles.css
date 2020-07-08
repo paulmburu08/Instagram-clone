@@ -1,0 +1,54 @@
+.card{
+    margin-left: 30%;
+    margin-bottom: 10px;
+}
+
+.circular-image {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  
+  .circular-image img {
+    width: auto;
+    height: 100%;
+    margin-left: -7.5px;
+  }
+
+.new-post{
+  width: 50%;
+  margin-right: 20px;
+}
+
+.profile-wrapper {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.profile-wrapper img {
+  width: auto;
+  height: 100%;
+  margin-left: -50px;
+}
+
+.edit-profile{
+  width: 50%;
+  margin-right: 20px;
+}
+
+.profile-container{
+  margin-right: 30px;
+}
+
+.register{
+  font-size: 25px;
+}
+
+

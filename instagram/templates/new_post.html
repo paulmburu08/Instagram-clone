@@ -1,4 +1,4 @@
-{% load bootstrap3 %} 
+{% load bootstrap3 %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -6,21 +6,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captivate</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>New Post</title>
+    <script src="https://use.fontawesome.com/c6c3a50631.js"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <form  action="{%url 'new-post'%}" method="post" enctype="multipart/form-data">
-        {%csrf_token%}
-    
-        {% bootstrap_form form%}
-        <input type="submit" class="btn btn-success btn-lg" value="Post">
-      </form>
-    
-       {% block scripts %}
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      {% bootstrap_javascript %}
-       
-      {% endblock %}
+    {% include 'navbar.html' %}
+    <div class="container-fluid">
+        <div class="new-post">
+            <form  action="{%url 'new-post' %}" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+            
+                {% bootstrap_form form%}
+                <input type="submit" class="btn btn-success" value="Post">
+            </form>
+            
+            {% block scripts %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            {% bootstrap_javascript %}
+            
+            {% endblock %}
+        </div>
+    </div>
 </body>
 </html>
