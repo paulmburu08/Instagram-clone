@@ -102,7 +102,7 @@ def search_results(request):
 @login_required(login_url='/accounts/login/')
 def my_images(request,id):
     try:
-        images = Image.objects.filter(profile__id = id)
+        images = Image.objects.filter(user__id = id)
 
     except ObjectDoesNotExist:
         raise Http404()
