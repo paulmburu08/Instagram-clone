@@ -5,7 +5,7 @@ An Instagram clone where a User can Sign up,upload pictures and like and comment
 {paulmburu08}https://github.com/paulmburu08
 
 # Live link
-
+https://paulinstagram-clone.herokuapp.com/
 
 # Description
 As a User you will be able to:
