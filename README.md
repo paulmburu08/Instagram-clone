@@ -1,3 +1,4 @@
+[![codebeat badge](https://codebeat.co/badges/f19222c7-dbb9-497b-8a81-6229b9c66c7d)](https://codebeat.co/projects/github-com-paulmburu08-instagram-clone-master)
 # INSTAGRAM CLONE
 An Instagram clone where a User can Sign up,upload pictures and like and comment on other photos.
 
